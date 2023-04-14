@@ -16,6 +16,7 @@ const GroupsMenu: FunctionComponent<ServerSideProps> = ({ success, message }) =>
 
   const { token, auth } = useAuthData()
 
+  // se consulta al endpoint de grupos
   const { data, error } = useSwr([externalServices.proxy + externalServices.standings, token], ([url, token]) => swrFetcher(url, token), { revalidateOnFocus: false })
 
   if (error || !auth) {
