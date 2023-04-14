@@ -1,5 +1,5 @@
 
-import { NavbarComponent, GroupComponent } from "../../../components";
+import { NavbarComponent, GroupComponent, ChargeComponent, ErrorComponent } from "../../../components";
 import { fontInter } from "../../../utils/fonts";
 import { GetServerSidePropsContext } from "next";
 import { ServerSideProps } from "@/utils/interfaces/global";
@@ -21,11 +21,11 @@ export default function GroupDetail({ success, message }: ServerSideProps) {
   const { data, error } = useSWR([`${externalServices.proxy}${externalServices.standings}/${groupId}`, token], ([url, token]) => swrFetcher(url, token))
 
   if (error) {
-    return <div>Error al cargar la data</div>
+    return <ErrorComponent />
   }
 
   if (!data) {
-    return <div>Cargando...</div>
+    return <ChargeComponent />
   }
 
   console.log(data.data[0])

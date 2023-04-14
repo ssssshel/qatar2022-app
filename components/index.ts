@@ -1,3 +1,5 @@
+export { default as ChargeComponent } from './ChargeComponent';
+export { default as ErrorComponent } from './ErrorComponent';
 export { default as GenericModalComponent } from './GenericModalComponent';
 export { default as GroupComponent } from './GroupComponent';
 export { default as LoginFormComponent } from './LoginFormComponent';

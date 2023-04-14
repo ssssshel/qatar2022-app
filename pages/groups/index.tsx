@@ -1,5 +1,5 @@
 import { GetServerSideProps, GetServerSidePropsContext, } from "next"
-import { NavbarComponent, GroupComponent } from "../../components"
+import { NavbarComponent, GroupComponent, ChargeComponent, ErrorComponent } from "../../components"
 import { fontInter } from '../../utils/fonts'
 import { parseCookies } from "@/utils/server"
 import { handlerGetExternal, swrFetcher } from "@/utils/handlers/fetch"
@@ -19,11 +19,11 @@ const GroupsMenu: FunctionComponent<ServerSideProps> = ({ success, message }) =>
   const { data, error } = useSwr([externalServices.proxy + externalServices.standings, token], ([url, token]) => swrFetcher(url, token))
 
   if (error) {
-    return <div>Error al cargar la data</div>
+    return <ErrorComponent />
   }
 
   if (!data) {
-    return <div>Cargando...</div>
+    return <ChargeComponent />
   }
 
   return (
