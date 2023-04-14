@@ -1,7 +1,8 @@
 import Link from "next/link"
+import Image from "next/image"
 
 interface IGroupComponent {
-  group: string,
+  group?: string,
   teams: Array<any>
 }
 
@@ -42,11 +43,14 @@ export default function GroupComponent({ group, teams }: IGroupComponent) {
             <tbody>
 
               {
-                sortedTeams.map(({ name_en, team_id, mp, g, d, l, gf, ga, gd, pts }) => (
+                sortedTeams.map(({ name_en, team_id, mp, g, d, l, gf, ga, gd, pts, w, flag }) => (
                   <tr key={team_id} className="text-center border-t border-b border-slate-400">
-                    <td className="font-bold">{name_en}</td>
+                    <td className="flex flex-row gap-4 font-bold">
+                      <Image src={flag} alt="w" width={30} height={10} />
+                      {name_en}
+                    </td>
                     <td className="font-bold">{mp}</td>
-                    <td>{g}</td>
+                    <td>{g || w}</td>
                     <td>{d}</td>
                     <td>{l}</td>
                     <td>{gf}</td>

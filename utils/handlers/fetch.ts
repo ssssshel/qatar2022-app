@@ -44,11 +44,9 @@ export async function handlePostExternal(url: string, payload: any, token?: stri
         ? {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
-          // "Access-Control-Allow-Origin": "http://localhost:3000"
         }
         : {
           "Content-Type": "application/json",
-          // "Access-Control-Allow-Origin": "http://localhost:3000"
         },
     })
 
@@ -65,3 +63,10 @@ export async function handlePostExternal(url: string, payload: any, token?: stri
 
   return res
 }
+
+export const swrFetcher = (url: string, token: string) =>
+  fetch(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json())

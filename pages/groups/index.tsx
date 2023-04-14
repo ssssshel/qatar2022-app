@@ -2,26 +2,21 @@ import { GetServerSideProps, GetServerSidePropsContext, } from "next"
 import { NavbarComponent, GroupComponent } from "../../components"
 import { fontInter } from '../../utils/fonts'
 import { parseCookies } from "@/utils/server"
-import { handlerGetExternal } from "@/utils/handlers/fetch"
+import { handlerGetExternal, swrFetcher } from "@/utils/handlers/fetch"
 import { externalServices } from "@/utils/servicesRoutes"
 import { FunctionComponent, useState } from "react"
 import { ServerSideProps } from "@/utils/interfaces/global"
 import { useAuthData } from "@/contexts/auth"
 import useSwr from 'swr'
 
-const fetcher = (url: string, token: string) =>
-  fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((res) => res.json())
+
 
 const GroupsMenu: FunctionComponent<ServerSideProps> = ({ success, message }) => {
   // console.log(data, error, success, message)
 
   const { token } = useAuthData()
 
-  const { data, error } = useSwr([externalServices.proxy + externalServices.standings, token], ([url, token]) => fetcher(url, token))
+  const { data, error } = useSwr([externalServices.proxy + externalServices.standings, token], ([url, token]) => swrFetcher(url, token))
 
   if (error) {
     return <div>Error al cargar la data</div>
@@ -30,17 +25,6 @@ const GroupsMenu: FunctionComponent<ServerSideProps> = ({ success, message }) =>
   if (!data) {
     return <div>Cargando...</div>
   }
-
-  console.log(data.data)
-  // async function fetch() {
-  //   await handlerGetExternal(externalServices.standings, token).then((res) => {
-  //     console.log(res)
-  //     groups = res.data
-  //   }).catch((err) => {
-  //     console.log(err)
-
-  //   })
-  // }
 
   return (
     <>
