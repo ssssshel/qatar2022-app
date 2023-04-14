@@ -1,7 +1,7 @@
 import GenericModalComponent from "./GenericModalComponent";
 import Link from "next/link";
 
-export default function ChargeComponent() {
+export default function ErrorComponent() {
   return <div className="fixed z-50 flex flex-col items-center justify-center w-full h-screen gap-6 bg-primary">
     <p className="text-3xl font-bold text-primary">Lo sentimos.</p>
     <p className="text-lg font-bold text-secondary">Ha ocurrido un error al cargar tu contenido</p>

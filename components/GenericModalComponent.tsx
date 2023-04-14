@@ -13,6 +13,7 @@ const GenericModalComponent: FunctionComponent<IGenericModalProps> = ({ isError,
 
   console.log('isOpen: ', isOpen)
 
+  // se cambia la visibilidad del modal
   useEffect(() => {
     if (isOpen) {
       document.getElementById('modal')!.style.display = 'flex'
@@ -22,7 +23,6 @@ const GenericModalComponent: FunctionComponent<IGenericModalProps> = ({ isError,
   }, [isOpen])
 
   function closeModal() {
-
     setIsOpen(false)
     document.getElementById('modal')!.style.display = 'none'
     router.push(destinyAfterClose)
@@ -37,7 +37,6 @@ const GenericModalComponent: FunctionComponent<IGenericModalProps> = ({ isError,
           isError ? <button className='px-4 py-2 border rounded-lg h-fit hover:text-light bg-gradient-to-br from-orange-600 to-yellow-300 hover:to-blue-500' onClick={() => closeModal()}>Cerrar</button> :
             <button className='px-4 py-2 border rounded-lg h-fit hover:text-light bg-gradient-to-br from-orange-600 to-yellow-300 hover:to-blue-500' onClick={() => closeModal()}>Continuar</button>
         }
-
 
       </div>
     </div>

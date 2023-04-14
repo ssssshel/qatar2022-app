@@ -14,11 +14,11 @@ import useSwr from 'swr'
 const GroupsMenu: FunctionComponent<ServerSideProps> = ({ success, message }) => {
   // console.log(data, error, success, message)
 
-  const { token } = useAuthData()
+  const { token, auth } = useAuthData()
 
-  const { data, error } = useSwr([externalServices.proxy + externalServices.standings, token], ([url, token]) => swrFetcher(url, token))
+  const { data, error } = useSwr([externalServices.proxy + externalServices.standings, token], ([url, token]) => swrFetcher(url, token), { revalidateOnFocus: false })
 
-  if (error) {
+  if (error || !auth) {
     return <ErrorComponent />
   }
 

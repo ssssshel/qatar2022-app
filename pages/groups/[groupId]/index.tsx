@@ -1,5 +1,5 @@
 
-import { NavbarComponent, GroupComponent, ChargeComponent, ErrorComponent } from "../../../components";
+import { NavbarComponent, GroupComponent, ChargeComponent, ErrorComponent, MatchesComponent } from "../../../components";
 import { fontInter } from "../../../utils/fonts";
 import { GetServerSidePropsContext } from "next";
 import { ServerSideProps } from "@/utils/interfaces/global";
@@ -16,11 +16,12 @@ export default function GroupDetail({ success, message }: ServerSideProps) {
   const router = useRouter()
   const { groupId } = router.query
 
-  const { token } = useAuthData()
+  const { token, auth } = useAuthData()
 
-  const { data, error } = useSWR([`${externalServices.proxy}${externalServices.standings}/${groupId}`, token], ([url, token]) => swrFetcher(url, token))
+  // se consume al endpoint de grupos y se busca a uno en particular
+  const { data, error } = useSWR([`${externalServices.proxy}${externalServices.standings}/${groupId}`, token], ([url, token]) => swrFetcher(url, token), { revalidateOnFocus: false })
 
-  if (error) {
+  if (error || !auth) {
     return <ErrorComponent />
   }
 
@@ -33,10 +34,12 @@ export default function GroupDetail({ success, message }: ServerSideProps) {
   return (
     <>
       <NavbarComponent />
-      <section className={`${fontInter.className} text-primary gap-10 flex flex-col h-screen px-20 py-32 bg-primary`}>
+      <section className={`${fontInter.className} text-primary gap-10 min-h-screen flex flex-col px-20 py-32 bg-primary`}>
         <h1 className="text-4xl font-bold text-center">Grupo {groupId}</h1>
 
         <GroupComponent group={data.data[0].group} teams={data.data[0].teams} />
+
+        <MatchesComponent />
       </section>
     </>
   )

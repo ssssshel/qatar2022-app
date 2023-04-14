@@ -43,6 +43,7 @@ export default function GroupComponent({ group, teams }: IGroupComponent) {
             <tbody>
 
               {
+                // se ordenan uno a uno los grupos en el template
                 sortedTeams.map(({ name_en, team_id, mp, g, d, l, gf, ga, gd, pts, w, flag }) => (
                   <tr key={team_id} className="text-center border-t border-b border-slate-400">
                     <td className="flex flex-row gap-4 font-bold">

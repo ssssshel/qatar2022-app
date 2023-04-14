@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <NavbarComponent />
 
-      <header className={`${fontInter.className} h-screen bg-primary`}>
+      <header className={`${fontInter.className} min-h-screen bg-primary`}>
 
         <div className='grid grid-cols-5'>
           <div className='flex flex-col justify-center h-full col-span-2 gap-6 px-20'>
@@ -37,7 +37,7 @@ export default function Home() {
 
           </div>
 
-          <div className='relative h-screen col-span-3'>
+          <div className='relative h-screen col-span-3 sm:hidden'>
 
             <Image src={login} alt='wc' style={{ height: '100%', objectFit: "cover", objectPosition: 'fill' }} />
           </div>
